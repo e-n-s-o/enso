@@ -73,19 +73,19 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
         {selectedCards.map((card) => (
           <div
             key={card.id}
-            className="flex items-center gap-2 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2"
+            className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2 shadow-sm"
           >
             {card.image_url ? (
               <img src={card.image_url} alt="" className="w-8 h-5 object-cover rounded" />
             ) : (
-              <div className="w-8 h-5 bg-gray-800 rounded flex items-center justify-center">
-                <span className="text-[8px] text-lime-400">{card.reward_token}</span>
+              <div className="w-8 h-5 bg-emerald-100 rounded flex items-center justify-center">
+                <span className="text-[8px] text-emerald-600">{card.reward_token}</span>
               </div>
             )}
-            <span className="text-sm text-white">{card.name}</span>
+            <span className="text-sm text-gray-900">{card.name}</span>
             <button
               onClick={() => removeCard(card.id)}
-              className="ml-1 text-gray-500 hover:text-red-400 transition-colors"
+              className="ml-1 text-gray-400 hover:text-red-500 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -99,7 +99,7 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-2 px-4 py-2 border border-dashed border-gray-700 hover:border-lime-500 rounded-lg text-gray-400 hover:text-lime-400 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 border border-dashed border-gray-300 hover:border-emerald-500 rounded-lg text-gray-500 hover:text-emerald-600 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -109,15 +109,15 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
 
             {/* Dropdown */}
             {isOpen && (
-              <div className="absolute top-full left-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden">
                 {/* Search */}
-                <div className="p-3 border-b border-gray-800">
+                <div className="p-3 border-b border-gray-100">
                   <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search cards..."
-                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime-500"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     autoFocus
                   />
                 </div>
@@ -133,20 +133,20 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
                       <button
                         key={card.id}
                         onClick={() => addCard(card.id)}
-                        className="w-full flex items-center gap-3 p-3 hover:bg-gray-800 transition-colors text-left"
+                        className="w-full flex items-center gap-3 p-3 hover:bg-emerald-50 transition-colors text-left"
                       >
                         {card.image_url ? (
                           <img src={card.image_url} alt="" className="w-10 h-6 object-cover rounded" />
                         ) : (
-                          <div className="w-10 h-6 bg-gray-800 rounded flex items-center justify-center">
-                            <span className="text-[10px] text-lime-400">{card.reward_token}</span>
+                          <div className="w-10 h-6 bg-emerald-100 rounded flex items-center justify-center">
+                            <span className="text-[10px] text-emerald-600">{card.reward_token}</span>
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-white truncate">{card.name}</p>
+                          <p className="text-sm text-gray-900 truncate">{card.name}</p>
                           <p className="text-xs text-gray-500">{card.issuer}</p>
                         </div>
-                        <span className="text-xs text-lime-400">{card.reward_token}</span>
+                        <span className="text-xs text-emerald-600">{card.reward_token}</span>
                       </button>
                     ))
                   )}
@@ -160,7 +160,7 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
         {selectedIds.length > 0 && (
           <button
             onClick={clearAll}
-            className="text-sm text-gray-500 hover:text-red-400 transition-colors"
+            className="text-sm text-gray-500 hover:text-red-500 transition-colors"
           >
             Clear all
           </button>

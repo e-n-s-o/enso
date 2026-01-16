@@ -58,10 +58,10 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search cards..."
-            className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
           />
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -77,7 +77,7 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
         <button
           type="submit"
           disabled={isPending}
-          className="px-4 py-2 bg-lime-600 hover:bg-lime-700 disabled:bg-lime-800 text-white rounded-lg font-medium transition-colors"
+          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-300 text-white rounded-lg font-medium transition-colors"
         >
           Search
         </button>
@@ -89,7 +89,7 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
         <select
           value={currentFilters.issuer || ''}
           onChange={(e) => updateFilter('issuer', e.target.value)}
-          className="px-3 py-2 bg-gray-900 border border-gray-800 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500"
+          className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">All Issuers</option>
           {issuers.map((issuer) => (
@@ -103,7 +103,7 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
         <select
           value={currentFilters.token || ''}
           onChange={(e) => updateFilter('token', e.target.value)}
-          className="px-3 py-2 bg-gray-900 border border-gray-800 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500"
+          className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">All Tokens</option>
           {tokens.map((token) => (
@@ -117,7 +117,7 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
         <select
           value={currentFilters.sort || ''}
           onChange={(e) => updateFilter('sort', e.target.value)}
-          className="px-3 py-2 bg-gray-900 border border-gray-800 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500"
+          className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">Sort: Newest</option>
           <option value="rewards">Highest Rewards</option>
@@ -129,7 +129,7 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
         {hasFilters && (
           <button
             onClick={clearFilters}
-            className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="px-3 py-2 text-sm text-gray-500 hover:text-emerald-600 transition-colors"
           >
             Clear filters
           </button>
