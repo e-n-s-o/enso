@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Navbar } from '@/components/Navbar'
+import { CryptoCard } from '@/components/CryptoCard'
 
 export default async function Home() {
   const supabase = await createClient()
@@ -8,7 +9,7 @@ export default async function Home() {
   // Get featured cards
   const { data: featuredCards } = await supabase
     .from('crypto_cards')
-    .select('id, name, issuer, reward_token, rewards_rate, annual_fee, image_url')
+    .select('id, name, issuer, reward_token, rewards_rate, annual_fee, image_url, card_tier, card_network, staking_required, benefits')
     .eq('is_active', true)
     .limit(3)
 
@@ -94,32 +95,8 @@ export default async function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredCards.map((card) => (
-              <Link key={card.id} href={`/cards/${card.id}`}>
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300">
-                  <div className="h-40 bg-gradient-to-br from-emerald-50 to-teal-50 relative">
-                    {card.image_url ? (
-                      <img src={card.image_url} alt={card.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-32 h-20 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg border border-emerald-500/30 flex items-center justify-center">
-                          <span className="text-emerald-600 font-bold">{card.reward_token}</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900">{card.name}</h3>
-                    <p className="text-sm text-gray-500">{card.issuer}</p>
-                    <div className="flex justify-between mt-3 text-sm">
-                      <span className="text-gray-500">
-                        {card.annual_fee === 0 ? 'No annual fee' : `$${card.annual_fee}/yr`}
-                      </span>
-                      <span className="text-emerald-600 font-medium">{card.rewards_rate?.default}% back</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+            {featuredCards.map((card: any) => (
+              <CryptoCard key={card.id} card={card} />
             ))}
           </div>
         </section>

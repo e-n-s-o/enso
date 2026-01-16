@@ -2,12 +2,14 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { CardMini } from '@/components/CryptoCard'
 
 interface Card {
   id: string
   name: string
   issuer: string
   reward_token: string
+  card_tier?: string
   image_url?: string
 }
 
@@ -73,15 +75,11 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
         {selectedCards.map((card) => (
           <div
             key={card.id}
-            className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-3 py-2 shadow-sm"
+            className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg pl-2 pr-3 py-2 shadow-sm"
           >
-            {card.image_url ? (
-              <img src={card.image_url} alt="" className="w-8 h-5 object-cover rounded" />
-            ) : (
-              <div className="w-8 h-5 bg-emerald-100 rounded flex items-center justify-center">
-                <span className="text-[8px] text-emerald-600">{card.reward_token}</span>
-              </div>
-            )}
+            <div className="w-16">
+              <CardMini card={card} />
+            </div>
             <span className="text-sm text-gray-900">{card.name}</span>
             <button
               onClick={() => removeCard(card.id)}
@@ -133,20 +131,16 @@ export function CardSelector({ allCards, selectedIds }: CardSelectorProps) {
                       <button
                         key={card.id}
                         onClick={() => addCard(card.id)}
-                        className="w-full flex items-center gap-3 p-3 hover:bg-emerald-50 transition-colors text-left"
+                        className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors text-left"
                       >
-                        {card.image_url ? (
-                          <img src={card.image_url} alt="" className="w-10 h-6 object-cover rounded" />
-                        ) : (
-                          <div className="w-10 h-6 bg-emerald-100 rounded flex items-center justify-center">
-                            <span className="text-[10px] text-emerald-600">{card.reward_token}</span>
-                          </div>
-                        )}
+                        <div className="w-14 flex-shrink-0">
+                          <CardMini card={card} />
+                        </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm text-gray-900 truncate">{card.name}</p>
                           <p className="text-xs text-gray-500">{card.issuer}</p>
                         </div>
-                        <span className="text-xs text-emerald-600">{card.reward_token}</span>
+                        <span className="text-xs text-emerald-600 font-medium">{card.reward_token}</span>
                       </button>
                     ))
                   )}

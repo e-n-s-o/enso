@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+import { CardMini } from '@/components/CryptoCard'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -135,26 +136,18 @@ export default async function DashboardPage() {
               <Link
                 key={userCard.id}
                 href={`/cards/${userCard.crypto_cards.id}`}
-                className="flex items-center gap-4 p-4 bg-gray-50 hover:bg-emerald-50 rounded-lg transition-colors"
+                className="flex items-center gap-4 p-3 bg-gray-50 hover:bg-emerald-50 rounded-lg transition-colors"
               >
-                {userCard.crypto_cards.image_url ? (
-                  <img
-                    src={userCard.crypto_cards.image_url}
-                    alt={userCard.crypto_cards.name}
-                    className="w-16 h-10 object-cover rounded"
-                  />
-                ) : (
-                  <div className="w-16 h-10 bg-emerald-100 rounded flex items-center justify-center">
-                    <span className="text-xs text-emerald-600">{userCard.crypto_cards.reward_token}</span>
-                  </div>
-                )}
+                <div className="w-20 flex-shrink-0">
+                  <CardMini card={userCard.crypto_cards} />
+                </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-gray-900 font-medium truncate">
                     {userCard.nickname || userCard.crypto_cards.name}
                   </p>
                   <p className="text-sm text-gray-500">{userCard.crypto_cards.issuer}</p>
                 </div>
-                <span className="text-emerald-600 font-medium">
+                <span className="text-emerald-600 font-semibold">
                   {userCard.crypto_cards.rewards_rate?.default}%
                 </span>
               </Link>

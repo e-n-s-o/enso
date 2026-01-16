@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { CardVisual } from '@/components/CryptoCard'
 
 interface Card {
   id: string
@@ -15,6 +16,7 @@ interface Card {
   image_url?: string
   website_url?: string
   description?: string
+  card_network?: string
 }
 
 interface ComparisonTableProps {
@@ -33,31 +35,18 @@ export function ComparisonTable({ cards }: ComparisonTableProps) {
       {/* Card Headers */}
       <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${cards.length}, 1fr)` }}>
         {cards.map((card) => (
-          <div key={card.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-            {/* Card Image */}
-            <div className="h-32 bg-gradient-to-br from-emerald-50 to-teal-50 relative">
-              {card.image_url ? (
-                <img src={card.image_url} alt={card.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-16 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg border border-emerald-500/30 flex items-center justify-center">
-                    <span className="text-emerald-600 font-bold">{card.reward_token}</span>
-                  </div>
-                </div>
-              )}
-            </div>
+          <div key={card.id} className="space-y-3">
+            {/* Card Visual */}
+            <Link href={`/cards/${card.id}`} className="block hover:scale-[1.02] transition-transform">
+              <CardVisual card={card} size="small" />
+            </Link>
 
             {/* Card Info */}
-            <div className="p-4 text-center">
+            <div className="text-center">
               <Link href={`/cards/${card.id}`} className="hover:text-emerald-600 transition-colors">
                 <h3 className="font-semibold text-gray-900">{card.name}</h3>
               </Link>
               <p className="text-sm text-gray-500">{card.issuer}</p>
-              {card.card_tier && (
-                <span className="inline-block mt-2 px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">
-                  {card.card_tier}
-                </span>
-              )}
             </div>
           </div>
         ))}

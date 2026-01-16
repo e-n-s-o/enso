@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Navbar } from '@/components/Navbar'
 import { AddToMyCards } from '@/components/AddToMyCards'
+import { CardVisual, CardMini } from '@/components/CryptoCard'
 
 export default async function CardDetailPage({
   params,
@@ -55,21 +56,11 @@ export default async function CardDetailPage({
           <div className="lg:col-span-2 space-y-6">
             {/* Card Header */}
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-              {/* Card Image */}
-              <div className="h-64 bg-gradient-to-br from-emerald-50 to-teal-50 relative">
-                {card.image_url ? (
-                  <img
-                    src={card.image_url}
-                    alt={card.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-48 h-32 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-xl border border-emerald-500/30 flex items-center justify-center">
-                      <span className="text-emerald-600 font-bold text-2xl">{card.reward_token}</span>
-                    </div>
-                  </div>
-                )}
+              {/* Card Visual */}
+              <div className="p-8 bg-gradient-to-br from-gray-50 to-gray-100 flex justify-center">
+                <div className="w-full max-w-md">
+                  <CardVisual card={card} size="large" />
+                </div>
               </div>
 
               {/* Card Info */}
@@ -79,7 +70,7 @@ export default async function CardDetailPage({
                     <h1 className="text-2xl font-bold text-gray-900">{card.name}</h1>
                     <p className="text-gray-600">{card.issuer}</p>
                     {card.card_tier && (
-                      <span className="inline-block mt-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">
+                      <span className="inline-block mt-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
                         {card.card_tier}
                       </span>
                     )}
@@ -179,26 +170,16 @@ export default async function CardDetailPage({
                     <Link
                       key={relatedCard.id}
                       href={`/cards/${relatedCard.id}`}
-                      className="block p-3 bg-gray-50 hover:bg-emerald-50 rounded-lg transition-colors"
+                      className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        {relatedCard.image_url ? (
-                          <img
-                            src={relatedCard.image_url}
-                            alt={relatedCard.name}
-                            className="w-12 h-8 object-cover rounded"
-                          />
-                        ) : (
-                          <div className="w-12 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                            <span className="text-xs text-emerald-600">{relatedCard.reward_token}</span>
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">{relatedCard.name}</p>
-                          <p className="text-xs text-gray-500">{relatedCard.issuer}</p>
-                        </div>
-                        <span className="text-sm text-emerald-600">{relatedCard.rewards_rate?.default}%</span>
+                      <div className="w-20 flex-shrink-0">
+                        <CardMini card={relatedCard} />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">{relatedCard.name}</p>
+                        <p className="text-xs text-gray-500">{relatedCard.issuer}</p>
+                      </div>
+                      <span className="text-sm font-semibold text-emerald-600">{relatedCard.rewards_rate?.default}%</span>
                     </Link>
                   ))}
                 </div>

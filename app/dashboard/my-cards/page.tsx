@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { RemoveCardButton } from './RemoveCardButton'
+import { CardVisual } from '@/components/CryptoCard'
 
 export default async function MyCardsPage() {
   const supabase = await createClient()
@@ -78,23 +79,13 @@ export default async function MyCardsPage() {
               key={userCard.id}
               className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300"
             >
-              {/* Card Image */}
-              <div className="h-32 bg-gradient-to-br from-emerald-50 to-teal-50 relative">
-                {userCard.crypto_cards.image_url ? (
-                  <img
-                    src={userCard.crypto_cards.image_url}
-                    alt={userCard.crypto_cards.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-24 h-16 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg border border-emerald-500/30 flex items-center justify-center">
-                      <span className="text-emerald-600 font-bold">{userCard.crypto_cards.reward_token}</span>
-                    </div>
-                  </div>
-                )}
+              {/* Card Visual */}
+              <div className="p-4 bg-gray-50 relative">
+                <Link href={`/cards/${userCard.crypto_cards.id}`}>
+                  <CardVisual card={userCard.crypto_cards} size="small" />
+                </Link>
                 {userCard.is_primary && (
-                  <span className="absolute top-2 right-2 px-2 py-1 bg-emerald-500 text-white text-xs font-medium rounded">
+                  <span className="absolute top-6 right-6 px-2 py-1 bg-emerald-500 text-white text-xs font-medium rounded shadow">
                     Primary
                   </span>
                 )}

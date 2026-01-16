@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useTransition } from 'react'
 
 interface CardsFilterProps {
   issuers: string[]
@@ -18,7 +18,6 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
   const router = useRouter()
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
-  const [search, setSearch] = useState(currentFilters.search || '')
 
   const updateFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -34,62 +33,16 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
     })
   }
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    updateFilter('search', search)
-  }
-
-  const clearFilters = () => {
-    setSearch('')
-    startTransition(() => {
-      router.push('/cards')
-    })
-  }
-
-  const hasFilters = currentFilters.search || currentFilters.issuer || currentFilters.token || currentFilters.sort
+  const hasFilters = currentFilters.issuer || currentFilters.token
 
   return (
-    <div className="mb-8 space-y-4">
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="flex gap-2">
-        <div className="relative flex-1 max-w-md">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search cards..."
-            className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-          />
-          <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </div>
-        <button
-          type="submit"
-          disabled={isPending}
-          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-300 text-white rounded-lg font-medium transition-colors"
-        >
-          Search
-        </button>
-      </form>
-
-      {/* Filter Row */}
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Issuer Filter */}
+    <div className="flex flex-wrap items-center gap-3 mb-8">
+      {/* Issuer Filter */}
+      <div className="relative">
         <select
           value={currentFilters.issuer || ''}
           onChange={(e) => updateFilter('issuer', e.target.value)}
-          className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="appearance-none pl-10 pr-8 py-2.5 bg-white border border-gray-200 rounded-full text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent cursor-pointer hover:border-gray-300 transition-colors"
         >
           <option value="">All Issuers</option>
           {issuers.map((issuer) => (
@@ -98,65 +51,76 @@ export function CardsFilter({ issuers, tokens, currentFilters }: CardsFilterProp
             </option>
           ))}
         </select>
+        {/* Globe icon */}
+        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+        {/* Chevron */}
+        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
 
-        {/* Token Filter */}
+      {/* Token Filter */}
+      <div className="relative">
         <select
           value={currentFilters.token || ''}
           onChange={(e) => updateFilter('token', e.target.value)}
-          className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="appearance-none pl-10 pr-8 py-2.5 bg-white border border-gray-200 rounded-full text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent cursor-pointer hover:border-gray-300 transition-colors"
         >
-          <option value="">All Tokens</option>
+          <option value="">Any Token</option>
           {tokens.map((token) => (
             <option key={token} value={token}>
               {token}
             </option>
           ))}
         </select>
+        {/* Card icon */}
+        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+        </svg>
+        {/* Chevron */}
+        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
 
-        {/* Sort */}
+      {/* Sort Filter */}
+      <div className="relative">
         <select
           value={currentFilters.sort || ''}
           onChange={(e) => updateFilter('sort', e.target.value)}
-          className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="appearance-none pl-10 pr-8 py-2.5 bg-white border border-gray-200 rounded-full text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent cursor-pointer hover:border-gray-300 transition-colors"
         >
-          <option value="">Sort: Newest</option>
+          <option value="">Newest First</option>
           <option value="rewards">Highest Rewards</option>
           <option value="fee-low">Lowest Fee</option>
           <option value="fee-high">Highest Fee</option>
         </select>
-
-        {/* Clear Filters */}
-        {hasFilters && (
-          <button
-            onClick={clearFilters}
-            className="px-3 py-2 text-sm text-gray-500 hover:text-emerald-600 transition-colors"
-          >
-            Clear filters
-          </button>
-        )}
-
-        {/* Loading Indicator */}
-        {isPending && (
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-            Loading...
-          </div>
-        )}
+        {/* Sort icon */}
+        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+        </svg>
+        {/* Chevron */}
+        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
+
+      {/* Clear Filters */}
+      {hasFilters && (
+        <button
+          onClick={() => startTransition(() => router.push('/cards'))}
+          className="px-4 py-2.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+        >
+          Clear
+        </button>
+      )}
+
+      {/* Loading Indicator */}
+      {isPending && (
+        <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+      )}
     </div>
   )
 }

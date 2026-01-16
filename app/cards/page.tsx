@@ -70,10 +70,7 @@ export default async function CardsPage({
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Crypto Cards</h1>
-          <p className="text-gray-600 mt-2">
-            Compare and find the best crypto credit and debit cards
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">Explore Cards</h1>
         </div>
 
         {/* Filters */}
@@ -82,13 +79,6 @@ export default async function CardsPage({
           tokens={tokens}
           currentFilters={params}
         />
-
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-sm text-gray-500">
-            {cards?.length || 0} cards found
-          </p>
-        </div>
 
         {/* Error State */}
         {error && (
@@ -116,7 +106,7 @@ export default async function CardsPage({
 
         {/* Cards Grid */}
         {cards && cards.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {cards.map((card) => (
               <CryptoCard key={card.id} card={card} />
             ))}
