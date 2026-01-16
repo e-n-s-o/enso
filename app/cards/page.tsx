@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { CryptoCard } from '@/components/CryptoCard'
-import Link from 'next/link'
+import { Navbar } from '@/components/Navbar'
 import { CardsFilter } from './CardsFilter'
 
 interface SearchParams {
@@ -65,25 +65,7 @@ export default async function CardsPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-gray-900">
-            Enzo
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/cards" className="text-sm text-emerald-600 font-medium">
-              Cards
-            </Link>
-            <Link href="/compare" className="text-sm text-gray-600 hover:text-emerald-600 transition-colors">
-              Compare
-            </Link>
-            <Link href="/login" className="text-sm text-gray-600 hover:text-emerald-600 transition-colors">
-              Login
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Navbar activePage="cards" />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Page Header */}

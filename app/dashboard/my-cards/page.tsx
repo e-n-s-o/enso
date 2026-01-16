@@ -33,38 +33,38 @@ export default async function MyCardsPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-white">My Cards</h1>
-          <p className="text-gray-400 mt-1">Manage your crypto card portfolio</p>
+          <h1 className="text-2xl font-bold text-gray-900">My Cards</h1>
+          <p className="text-gray-600 mt-1">Manage your crypto card portfolio</p>
         </div>
         <Link
           href="/cards"
-          className="px-4 py-2 bg-lime-600 hover:bg-lime-700 text-white rounded-lg font-medium transition-colors"
+          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-colors shadow-lg shadow-emerald-500/25"
         >
           + Add Card
         </Link>
       </div>
 
       {error && (
-        <div className="bg-red-900/20 border border-red-800 text-red-400 p-4 rounded-lg">
+        <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
           Error loading cards: {error.message}
           <p className="text-sm mt-2">Make sure you&apos;ve created the user_cards table in Supabase.</p>
         </div>
       )}
 
       {!error && (!userCards || userCards.length === 0) && (
-        <div className="text-center py-16 bg-gray-900 border border-gray-800 rounded-xl">
-          <div className="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="text-center py-16 bg-white border border-gray-200 rounded-xl shadow-sm">
+          <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
             </svg>
           </div>
-          <h3 className="text-xl font-medium text-white mb-2">No cards in your portfolio</h3>
+          <h3 className="text-xl font-medium text-gray-900 mb-2">No cards in your portfolio</h3>
           <p className="text-gray-500 mb-6 max-w-md mx-auto">
             Start by browsing our crypto cards and adding the ones you own or are interested in.
           </p>
           <Link
             href="/cards"
-            className="inline-block px-6 py-3 bg-lime-600 hover:bg-lime-700 text-white rounded-lg font-medium transition-colors"
+            className="inline-block px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-colors shadow-lg shadow-emerald-500/25"
           >
             Browse Cards
           </Link>
@@ -76,10 +76,10 @@ export default async function MyCardsPage() {
           {userCards.map((userCard: any) => (
             <div
               key={userCard.id}
-              className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-700 transition-colors"
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300"
             >
               {/* Card Image */}
-              <div className="h-32 bg-gradient-to-br from-gray-800 to-gray-900 relative">
+              <div className="h-32 bg-gradient-to-br from-emerald-50 to-teal-50 relative">
                 {userCard.crypto_cards.image_url ? (
                   <img
                     src={userCard.crypto_cards.image_url}
@@ -88,13 +88,13 @@ export default async function MyCardsPage() {
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-24 h-16 bg-gradient-to-br from-lime-500/20 to-emerald-500/20 rounded-lg border border-lime-500/30 flex items-center justify-center">
-                      <span className="text-lime-500 font-bold">{userCard.crypto_cards.reward_token}</span>
+                    <div className="w-24 h-16 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg border border-emerald-500/30 flex items-center justify-center">
+                      <span className="text-emerald-600 font-bold">{userCard.crypto_cards.reward_token}</span>
                     </div>
                   </div>
                 )}
                 {userCard.is_primary && (
-                  <span className="absolute top-2 right-2 px-2 py-1 bg-lime-500 text-black text-xs font-medium rounded">
+                  <span className="absolute top-2 right-2 px-2 py-1 bg-emerald-500 text-white text-xs font-medium rounded">
                     Primary
                   </span>
                 )}
@@ -104,12 +104,12 @@ export default async function MyCardsPage() {
               <div className="p-4">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="font-semibold text-white">
+                    <h3 className="font-semibold text-gray-900">
                       {userCard.nickname || userCard.crypto_cards.name}
                     </h3>
                     <p className="text-sm text-gray-500">{userCard.crypto_cards.issuer}</p>
                   </div>
-                  <span className="text-lime-400 font-bold">
+                  <span className="text-emerald-600 font-bold">
                     {userCard.crypto_cards.rewards_rate?.default}%
                   </span>
                 </div>
@@ -121,13 +121,13 @@ export default async function MyCardsPage() {
                 )}
 
                 {userCard.notes && (
-                  <p className="text-sm text-gray-400 mb-3 line-clamp-2">{userCard.notes}</p>
+                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">{userCard.notes}</p>
                 )}
 
-                <div className="flex items-center justify-between pt-3 border-t border-gray-800">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                   <Link
                     href={`/cards/${userCard.crypto_cards.id}`}
-                    className="text-sm text-lime-400 hover:text-lime-300"
+                    className="text-sm text-emerald-600 hover:text-emerald-700"
                   >
                     View Details
                   </Link>

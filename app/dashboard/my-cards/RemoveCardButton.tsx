@@ -33,7 +33,7 @@ export function RemoveCardButton({ userCardId, cardName }: { userCardId: string;
     <button
       onClick={handleRemove}
       disabled={removing}
-      className="text-sm text-red-400 hover:text-red-300 disabled:text-red-800"
+      className="text-sm text-red-500 hover:text-red-600 disabled:text-red-300"
     >
       {removing ? 'Removing...' : 'Remove'}
     </button>
